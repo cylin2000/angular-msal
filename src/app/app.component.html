@@ -27,5 +27,29 @@
     </div>
   </div>
 
+  <div *ngIf="isLoggedIn()">
+    <table>
+      <tr>
+        <!-- <td><span>Welcome {{getName()}}!</span></td> -->
+      </tr>
+      <tr>
+        <td><span><button (click)="callProfile()">GET PROFILE</button></span></td>
+      </tr>
+      <tr>
+        <td><span><button (click)="callEmails()">GET EMAILS</button></span></td>
+      </tr>
+      <tr>
+        <td><span><button (click)="sayHello()">SAY HELLO</button></span></td>
+      </tr>
+      <tr>
+        <td><span *ngIf="isLoggedIn()">API Response: {{apiResponse}}</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <pre>
+    {{apiResponse}}
+  </pre>
+
   <router-outlet></router-outlet>
 </div>

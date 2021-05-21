@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MsalModule, MsalService, MSAL_INSTANCE } from '@azure/msal-angular';
-import { IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
+import { MsalInterceptor, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG } from '@azure/msal-angular';
+import { InteractionType, IPublicClientApplication, PublicClientApplication } from '@azure/msal-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PublicComponent } from './public/public.component';
 import { PrivateComponent } from './private/private.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export function MsalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
@@ -17,6 +18,18 @@ export function MsalInstanceFactory(): IPublicClientApplication {
   })
 }
 
+export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
+  const protectedResourceMap = new Map<string, Array<string>>();
+  // protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
+  protectedResourceMap.set('https://graph.microsoft-ppe.com/v1.0/me', ['user.read', 'mail.read']);
+  //protectedResourceMap.set('https://azfunctestauth.azurewebsites.net/', ['api://68c114b2-c995-40f3-9ae7-9daf4a55a7a7/user_impersonation'])
+
+  return {
+    interactionType: InteractionType.Popup,
+    protectedResourceMap
+  };
+} 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,12 +39,22 @@ export function MsalInstanceFactory(): IPublicClientApplication {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MsalModule
+    MsalModule,
+    HttpClientModule
   ],
   providers: [
     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
+    },
+    {
       provide: MSAL_INSTANCE,
       useFactory: MsalInstanceFactory
+    },
+    {
+      provide: MSAL_INTERCEPTOR_CONFIG,
+      useFactory: MSALInterceptorConfigFactory
     },
     MsalService
   ],
