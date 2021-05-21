@@ -22,7 +22,7 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   // protectedResourceMap.set('https://graph.microsoft.com/v1.0/me', ['user.read']); // Prod environment. Uncomment to use.
   protectedResourceMap.set('https://graph.microsoft-ppe.com/v1.0/me', ['user.read', 'mail.read']);
-  //protectedResourceMap.set('https://azfunctestauth.azurewebsites.net/', ['api://68c114b2-c995-40f3-9ae7-9daf4a55a7a7/user_impersonation'])
+  //protectedResourceMap.set('https://azfunctestauth.azurewebsites.net/', ['api://19a0a77d-883e-4b4d-bed8-5552d55b5ba5/user_impersonation'])
 
   return {
     interactionType: InteractionType.Popup,

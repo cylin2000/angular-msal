@@ -64,13 +64,10 @@ export class AppComponent {
 
     console.log('testing')
 
-    // this._authService.acquireTokenSilent
-    // this.reqTest({
-    //   scopes: ['api://f4bea837-2e83-41aa-990d-2d7c33edf360/user_impersonation']
-    // });
 
-    this._authService.acquireTokenSilent({
-      scopes: ['api://68c114b2-c995-40f3-9ae7-9daf4a55a7a7/user_impersonation']
+
+    this._authService.acquireTokenPopup({
+      scopes: ['api://19a0a77d-883e-4b4d-bed8-5552d55b5ba5/access_as_user']
     }).subscribe(test => {
       console.log('test', test)
 
