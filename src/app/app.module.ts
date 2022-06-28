@@ -11,8 +11,10 @@ import { PrivateComponent } from './private/private.component';
 export function MsalInstanceFactory(): IPublicClientApplication {
   return new PublicClientApplication({
     auth: {
-      clientId: '4e38e4c2-9f56-4a54-a28f-9f87e47c2400', // This is your client ID
-      redirectUri: 'http://localhost:4200'// This is your redirect URI
+      clientId: 'fe71d466-76fc-4ac5-96e2-d6abf5ea2436', // This is your client ID
+      redirectUri: 'http://localhost:4200',// This is your redirect URI
+      authority: "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47"
+      //navigateToLoginRequestUrl:true 
     }
   })
 }
