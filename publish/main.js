@@ -300,7 +300,7 @@ function MsalInstanceFactory() {
     return new _azure_msal_browser__WEBPACK_IMPORTED_MODULE_2__["PublicClientApplication"]({
         auth: {
             clientId: 'fe71d466-76fc-4ac5-96e2-d6abf5ea2436',
-            redirectUri: 'http://localhost:4200',
+            redirectUri: 'https://brave-sky-0ff4c5d10.1.azurestaticapps.net/',
             authority: "https://login.microsoftonline.com/72f988bf-86f1-41af-91ab-2d7cd011db47"
             //navigateToLoginRequestUrl:true 
         }
